@@ -1,0 +1,51 @@
+from time import sleep
+import explorerhat
+from random import *
+import threading
+
+# contol pen spin
+
+def spin_pen_forward (channel, event):
+    t = threading.Thread(target = spin_pen_forward_t)
+    t.start()
+    
+def spin_pen_forward_t ():
+    duration = 10
+    print(duration)
+    explorerhat.motor.one.forward(50)
+    sleep(10)
+    explorerhat.motor.one.stop()
+
+explorerhat.touch.one.pressed(spin_pen_forward)
+
+# control pumpkin spin
+def spin_pumpkin_forward (channel, event):
+    t = threading.Thread(target = spin_pumpkin_forward_t)
+    t.start()
+
+def spin_pumpkin_forward_t ():
+    duration = random()
+    print(duration * 5)
+    explorerhat.motor.two.forward(15)
+    sleep(duration * 5)
+    explorerhat.motor.two.stop()
+
+def spin_pumpkin_back (channel, event):
+    t = threading.Thread(target = spin_pumpkin_back_t)
+    t.start()
+    
+
+def spin_pumpkin_back_t ():
+    duration = random()
+    print(duration * 5)
+    explorerhat.motor.two.backward(15)
+    sleep(duration * 5)
+    explorerhat.motor.two.stop()
+
+explorerhat.touch.three.pressed(spin_pumpkin_forward)
+explorerhat.touch.four.pressed(spin_pumpkin_back)
+
+
+#thread.start_new_thread(explorerhat.touch.three.pressed(spin_pumpkin_forward))
+#thread.start_new_thread(explorerhat.touch.one.pressed(spin_pen_forward))
+
